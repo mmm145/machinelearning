@@ -1,0 +1,12 @@
+neural network 
+
+what you have to think about.
+
+
+structure of neural network
+
+loss function
+
+activation function
+
+optimization method. 

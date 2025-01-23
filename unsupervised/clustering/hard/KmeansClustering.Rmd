@@ -1,0 +1,46 @@
+---
+title: "KmeansClustering"
+author: "Masahiro Yamaguchi"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+# def
+
+- unsupervised
+- hard clustering
+  - why, you can know exact clusters that each point will be in.
+
+# motivation 
+
+- you wanna know the group in data
+
+
+# Algorithm 
+
+- 1. randomly cluster the points into 2 groups
+- 2. get the center of each groups.  mean of each 
+- 3. get the distance between each point and center of the cluster. 
+- 4. compare the closeness and chante the cluster based on that.  
+
+# metric for clustering
+
+**variance between group**
+
+**variance within group**
+
+```{r}
+plot(faithful)
+```
+
+```{r}
+num_of_group <- 2
+
+(groups <- sample(num_of_group, nrow(faithful), TRUE))
+
+(centers <- sapply(faithful, tapply, groups, mean))
+
+(groups <- max.col(-apply(centers, 1, \(x) colSums( t(faithful) - x )^2)))
+```
+
+

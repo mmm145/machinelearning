@@ -29,6 +29,9 @@ output: html_document
 
 **variance within group**
 
+
+### implementation for clustering.
+
 ```{r}
 plot(faithful)
 ```
@@ -41,6 +44,20 @@ num_of_group <- 2
 (centers <- sapply(faithful, tapply, groups, mean))
 
 (groups <- max.col(-apply(centers, 1, \(x) colSums( t(faithful) - x )^2)))
+
+plot(faithful, col= groups)
 ```
+
+```{r}
+
+plot(faithful, col = groups)
+faithful
+
+```
+```{r}
+
+
+```
+
 
 

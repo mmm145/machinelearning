@@ -54,38 +54,7 @@ plot(faithful, col = groups)
 faithful
 
 ```
-
-
-
-I would like to improve this code tho.
-
 ```{r}
-
-
-
-link <- "https://raw.githubusercontent.com/oonyambu/ECON430/refs/heads/main/mean_shift.txt" 
-data <- read.table(link, header = TRUE) 
-set.seed(13L) 
-result<-cluster(data, 5)
-plot(data,col=result$cluster)
-
-
-cluster <- function(data, k){
-  groups <- sample(k,nrow(data),TRUE)
-  # get random nrow(data) amounts of values from 1,2,3,...k with replacement being TRUE
-  i<-0
-  while(i<100000){
-    centers <- apply(data, 2,tapply, groups, mean)
-    new_groups <- max.col(-apply(centers,1, function(x){colSums(t(data)-x)^2}))
-    if(all(new_groups == groups)){
-      break
-    }else{
-      groups = new_groups
-    }
-    i <- i + 1
-  }
-  ret<-list(centers=centers, cluster=groups)
-}
 
 
 ```

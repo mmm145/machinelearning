@@ -1,0 +1,40 @@
+---
+title: "linearRegression"
+author: "Masahiro Yamaguchi"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+
+
+```{r}
+#install.packages("purrr")
+#library(purrr)
+models <- mtcars %>%
+  split(.$cyl) %>%
+  lapply(function(df) lm(mpg~wt, data = df))
+
+modelss <- mtcars %>%
+  split(.$cyl) %>%
+  map(~lm(mpg~wt, data = .))
+
+
+for (m in models){
+  print(summary(m))
+}
+  
+```
+
+```{r}
+models %>%
+  map(summary) %>%
+  map_dbl("r.squared")
+```
+
+```{r}
+models %>%
+  map(summary)%>%
+  map_dbl(~.$r.squared)
+```
+
+

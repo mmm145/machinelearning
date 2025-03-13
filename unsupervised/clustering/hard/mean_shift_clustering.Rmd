@@ -1,0 +1,44 @@
+---
+title: "mean_shift_clustering"
+author: "Masahiro Yamaguchi"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+
+
+# linear kernel
+
+```{r}
+X <- as.matrix(faithful)
+qnt <- floor(nrow(X))*0.3
+bw <- mean(apply(as.matrix(dist(X)), 1, sort)[qnt, ])
+linear_kernel <- function(X, h) prop.table(as.matrix(dist(X)) < h, 1)
+for(i in 1: 20) X <- linear_kernel(X, bw) %*% X
+centers <- unique(X)
+clusters <- match(data.frame(t(X)), data.frame(t(centers)))
+plot(faithful, col = clusters + 1)
+points(centers, col = 2:3, cex=5, pch=16)
+
+```
+
+
+# gaussian kernel
+
+```{r}
+X <- as.matrix(faithful)
+for(i in 1:5){
+qnt <- floor(nrow(X))*0.1
+bw <- mean(apply(as.matrix(dist(X)), 1, sort)[qnt, ])
+gauss_kernel <- function(X, h) prop.table(dnorm(as.matrix(dist(X)), h), 1)
+for(i in 1:10) X <- gauss_kernel(X, bw) %*% X
+centers <- unique(X)
+clusters <- match(data.frame(t(X)), data.frame(t(centers)))
+}
+
+
+plot(faithful, col = clusters + 1)
+points(centers, col = 2:3, cex=5, pch=16)
+```
+
+
